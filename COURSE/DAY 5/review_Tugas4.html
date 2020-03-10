@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    let arrNamaBuah = ["Pisang", "Apel", "Jeruk"];
+    let arrStok = [10, 10, 10];
+    let arrHarga = [12000, 5000, 3000];
+    let inputBuah = [0, 0, 0];
+    let menu;
+    let isCondition;
+    let totalHarga = 0;
+    let nominalBayar;
+    let inputMenuIndex;
+    let inputQty;
+    let daftarBuah = "";
+
+    do {
+      daftarBuah = "";
+      for (let i = 0; i < arrNamaBuah.length; i++) {
+        daftarBuah += `${i + 1}. ${arrNamaBuah[i]}, Rp. ${arrHarga[i]}, Stok: ${
+          arrStok[i]
+        } \n`;
+      }
+
+      daftarBuah += `${arrNamaBuah.length + 1}. Checkout`;
+      menu = prompt(daftarBuah);
+      inputMenuIndex = menu - 1;
+
+      if (menu == daftarBuah.length + 1) {
+        totalHarga = 0;
+
+        for (let i = 0; i < arrNamaBuah.length; i++) {
+          totalHarga += arrHarga[i] * inputBuah[i];
+        }
+
+        do {
+          nominalBayar = prompt(
+            `Total belanjaan anda sebesar Rp. ${totalHarga}`
+          );
+          if (nominalBayar < totalHarga) {
+            alert("Uang kurang Rp. " + (totalHarga - nominalBayar));
+            isCondition = true;
+          } else if (nominalBayar > totalHarga) {
+            alert("Uang kelebihan Rp. " + (nominalBayar - totalHarga));
+            isCondition = false;
+          } else {
+            alert(`Terima kasih telah membayar dengan uang pas`);
+            isCondition = false;
+          }
+        } while (isCondition);
+
+        for (let i = 0; i < inputBuah.length; i++) {
+          arrStok[i] -= inputBuah[i];
+          inputBuah[i] = 0;
+        }
+        isCondition = confirm("Mau belanja lagi?");
+      } else {
+        do {
+          inputQty = parseInt(
+            prompt(`Mau beli berapa ${arrNamaBuah[inputMenuIndex]} ?`)
+          ); //menampilkan nama buah dari index yg dipilih
+          if (arrStok[inputMenuIndex] >= inputQty + inputBuah[inputMenuIndex]) {
+            //mengetahui stok dari index yg dipilih
+            inputBuah[inputMenuIndex] += inputQty; // jika kondisi mencukupi qty masuk ke array input buah
+            isCondition = false;
+          } else {
+            alert(`Stok ${arrNamaBuah[inputMenuIndex]} tidak cukup`);
+            isCondition = true;
+          }
+        } while (isCondition);
+        isCondition = true;
+      }
+    } while (isCondition);
+  </script>
+</html>

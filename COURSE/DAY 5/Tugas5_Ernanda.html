@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    let arrItems = [
+      {
+        nama: "Pisang",
+        harga: 10000,
+        stok: 10,
+        qty: 0
+      },
+      {
+        nama: "Mangga",
+        harga: 7000,
+        stok: 10,
+        qty: 0
+      },
+      {
+        nama: "Kiwi",
+        harga: 6500,
+        stok: 10,
+        qty: 0
+      }
+    ];
+
+    let inputUserMenu
+    let inputUserMenuIndex
+    let inputUserQty;
+    let isRepeat;
+    let totalPrice = 0;
+    let userPayment;
+    let cartMenu = ""
+    let menu = ""
+    let cartCount
+
+    do {
+      menu = "";
+
+      for (let i = 0; i < arrItems.length; i++) {
+        menu += `${i + 1}. ${arrItems[i].nama} IDR ${arrItems[i].harga}/pcs (${
+          arrItems[i].stok
+        } items in stock)\n`;
+      }
+
+      menu += `${arrItems.length + 1}. Daftar Cart\n`;
+      menu += `${arrItems.length + 2}. Checkout`;
+
+      inputUserMenu = prompt(menu);
+      inputUserMenuIndex = inputUserMenu - 1;
+
+      if (inputUserMenu == arrItems.length + 2) {
+        totalPrice = 0;
+
+        for (let i = 0; i < arrItems.length; i++) {
+          totalPrice += arrItems[i].harga * arrItems[i].qty;
+        }
+
+        do {
+          userPayment = prompt(
+            `Total belanjaan anda sebesar IDR ${totalPrice}`
+          );
+
+          if (userPayment > totalPrice) {
+            alert(`Kembalian anda IDR ${userPayment - totalPrice}`);
+            isRepeat = false;
+          } else if (userPayment < totalPrice) {
+            alert(`Uang anda kurang IDR ${totalPrice - userPayment}`);
+            prompt("Masukkan kekurangan uang");
+            alert("Pembayaran berhasil. Terima Kasih");
+            isRepeat = false;
+          } else if (userPayment == totalPrice) {
+            alert("Terima kasih sudah membayar dengan uang pas");
+            isRepeat = false;
+          }
+        } while (isRepeat);
+
+        for (let i = 0; i < arrItems.length; i++) {
+          arrItems[i].stok -= arrItems[i].qty;
+          arrItems[i].qty = 0;
+        }
+        if ((isRepeat = confirm("Ingin melanjutkan belanja?"))) {
+          isRepeat = true;
+        } else {
+          alert("Terima Kasih Telah Berbelanja.");
+          isRepeat = false;
+        }
+      } else if (inputUserMenu == arrItems.length + 1) {
+        cartMenu = ""
+        cartCount = 0 //initialize qty count agar selalu 0 saat belum ada pembelian
+        for (let i = 0; i < arrItems.length; i++) {
+          if (arrItems[i].qty > 0){
+          cartMenu += `${i + 1}. ${arrItems[i].nama}, Jumlah Beli: ${
+            arrItems[i].qty
+          }, Harga: ${arrItems[i].harga * arrItems[i].qty}\n`
+          cartCount = 1
+          totalPrice = 0
+        }
+        // for (let i = 0; i < arrItems.length; i++) {
+        //     totalPrice += arrItems[i].harga * arrItems[i].qty;
+        //   }
+        //   cartMenu += `\n Total Harga: IDR ${totalPrice}`
+        // alert(cartMenu)
+        // break
+        //isRepeat = true;
+
+        if (cartCount == 0 && i == arrItems.length - 1){
+          alert('Cart kosong')
+          isRepeat = true
+        }       
+        }
+
+        if (cartMenu){
+          alert(cartMenu)
+        }
+
+      
+      } else {
+        do {
+          inputUserQty = parseInt(
+            prompt(`Mau beli berapa ${arrItems[inputUserMenuIndex].nama}?`)
+          )
+
+          if (
+            arrItems[inputUserMenuIndex].stok >=
+            inputUserQty + arrItems[inputUserMenuIndex].qty
+          ) {
+            arrItems[inputUserMenuIndex].qty += inputUserQty;
+            isRepeat = false;
+          } else {
+            alert(`Stock ${arrItems[inputUserMenuIndex].stok} tidak cukup`);
+            isRepeat = true;
+          }
+        } while (isRepeat);
+
+        isRepeat = true;
+      }
+    } while (isRepeat);
+  </script>
+</html>

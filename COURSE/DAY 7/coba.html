@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let kota = ['Jakarta', 'BSD', 'Bandung']
+    let menu = ''
+    let inputMenu
+    let isRepeat
+
+    function hapus(index) {
+        for (let i = 0; i < kota.length; i++) {
+            if (kota[i].toLowerCase() == index.toLowerCase()) {
+                kota.splice(i, 1)
+            }
+        }
+    }
+
+    function include(index) {
+        for (let i = 0; i < kota.length; i++) {
+            if (kota[i].toLowerCase() == index.toLowerCase()) {
+                return true
+            }
+        }
+        return false
+    }
+
+    function repIndexOf(input) {
+        for (let i = 0; i < kota.length; i++) {
+            if (kota[i].toLowerCase() == input.toLowerCase()) {
+                return i
+            }
+        }
+        return -1
+    }
+
+    do {
+        //  inputMenu = prompt(kota)
+        //  alert(include(inputMenu))
+
+        let input = prompt(kota)
+        alert(repIndexOf(input))
+        isRepeat = true
+
+    } while (isRepeat)
+
+
+</script>
+
+</html>

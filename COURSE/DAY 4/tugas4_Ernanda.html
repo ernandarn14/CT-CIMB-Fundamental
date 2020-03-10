@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    let arrNamaBuah = ["Pisang", "Apel", "Jeruk"];
+    let arrStok = [10, 10, 10];
+    let arrHarga = [12000, 5000, 3000];
+    let inputBuah = [0, 0, 0];
+    let menu;
+    let isCondition, isInput, isUtama;
+    // let isInput
+    let pisang, apel, jeruk;
+    let totalHarga = 0;
+    let nominalBayar;
+
+    do {
+      let daftarBuah = "";
+      for (let i = 0; i < arrNamaBuah.length; i++) {
+        daftarBuah += `${arrNamaBuah[i]}, Rp. ${arrHarga[i]}, Stok: ${arrStok[i]} \n`;
+      }
+      alert(daftarBuah);
+
+      do {
+        menu = prompt(`Silahkan masukkan angka untuk memilih menu
+    1. Pisang
+    2. Apel
+    3. Jeruk
+    4. Check Out`);
+        if (menu == 1) {
+          do {
+            pisang = parseInt(prompt("Masukkan jumlah Pisang"));
+            if (pisang > arrStok[0] || pisang <= 0) {
+              alert("Stok Pisang Tidak Mencukupi");
+              isInput = true;
+            } else {
+              inputBuah[0] += pisang;
+              isInput = false;
+              isCondition = true;
+            }
+          } while (isInput);
+        } else if (menu == 2) {
+          do {
+            apel = parseInt(prompt("Masukkan jumlah Apel"));
+            if (apel > arrStok[1] || apel <= 0) {
+              alert("Stok Apel Tidak Mencukupi");
+              isInput = true;
+            } else {
+              inputBuah[1] += apel;
+              isInput = false;
+              isCondition = true;
+            }
+          } while (isInput);
+        } else if (menu == 3) {
+          do {
+            jeruk = parseInt(prompt("Masukkan jumlah Jeruk"));
+            if (jeruk > arrStok[2] || jeruk <= 0) {
+              alert("Stok Jeruk Tidak Mencukupi");
+              isInput = true;
+            } else {
+              inputBuah[2] += jeruk;
+              isInput = false;
+              isCondition = true;
+            }
+          } while (isInput);
+        } else {
+          arrStok[0] -= inputBuah[0]
+          arrStok[1] -= inputBuah[1]
+          arrStok[2] -= inputBuah[2]
+          for (let i = 0; i < arrNamaBuah.length; i++) {
+            totalHarga += arrHarga[i] * inputBuah[i]
+          }
+          alert("Total Harga: Rp. " + totalHarga)
+          nominalBayar = parseInt(prompt("Masukkan Nominal Uang"))
+
+          if (nominalBayar > totalHarga) {
+            alert("Uang kelebihan Rp. " + (nominalBayar - totalHarga))
+          } else if (nominalBayar < totalHarga) {
+            alert("Uang kurang Rp. " + (totalHarga - nominalBayar))
+            if (totalHarga - nominalBayar){
+            var kurangBayar = prompt("Masukkan kekurangan uang")
+            alert("Pembayaran berhasil. Terima Kasih")
+        } 
+          } else {
+            alert("Uang PAS");
+          }
+          isCondition = false;
+        }
+      } while (isCondition);
+      var belanja = confirm("Ingin Melanjutkan Belanja?")
+      if (belanja == true) {
+        totalHarga = 0
+        selesai = true
+        isUtama = true
+        for (let i = 0; i < inputBuah.length; i++) {
+          inputBuah[i] = 0;
+        }
+        totalHarga = 0;
+      } else {
+        alert("Terima Kasih Atas Kunjungannya");
+        selesai = false;
+        isUtama = false;
+      }
+    } while (isUtama);
+  </script>
+</html>

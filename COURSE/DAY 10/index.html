@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        table,
+        tr,
+        td,
+        th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center
+        }
+    </style>
+    <table align="center">
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Pekerjaan</th>
+                <th>Umur</th>
+                <th>Picture</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="mainData">
+
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td><input id="inputNama" type="text" placeholder="Input Nama:"></td>
+                <td><input id="inputPekerjaan" type="text" placeholder="Input Pekerjaan:"></td>
+                <td><input id="inputUmur" type="text" placeholder="Input Umur:"></td>
+                <td><input id="inputPic" type="text" placeholder="Input Picture Link:"></td>
+                <td><input id="submit" type="button" value="Submit" onclick="addData()"></td>
+            </tr>
+        </tfoot>
+
+    </table>
+</body>
+<script>
+    class Orang {
+        constructor(nama, pekerjaan, umur, pic) {
+            this.nama = nama,
+                this.pekerjaan = pekerjaan,
+                this.umur = umur,
+                this.pic = pic
+        }
+    }
+
+    let dataOrang = [
+        new Orang('Larva', 'Designer', 10, 'https://lampukecildotcom.files.wordpress.com/2015/08/animasi-kartun-larva.jpg'),
+        new Orang('Spongebob', 'Chef', 16, 'https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/SpongeBob_SquarePants_character.svg/330px-SpongeBob_SquarePants_character.svg.png'),
+        new Orang('Minion', 'Bodyguard', 20, 'https://m.media-amazon.com/images/S/aplus-media/mg/dbf4301f-af40-46f2-9a87-a99deddcd9a2._SL300__.jpg')
+    ]
+
+    const renderData = () => {
+        let hasil = ''
+        dataOrang.forEach(({ nama, pekerjaan, umur, pic }, index) => {
+            hasil += `
+            <tr>
+                <td>${nama}</td>
+                <td>${pekerjaan}</td>
+                <td>${umur}</td>
+                <td><img src=${pic} width="100px"></td>
+                <td><input id="delete" type="button" value="Delete" onclick="deleteData(${index})"></td>
+            </tr>
+            `
+        })
+        document.getElementById("mainData").innerHTML = hasil
+    }
+    renderData()
+
+    const addData = () => {
+        let inputNama = document.getElementById("inputNama").value
+        let inputPekerjaan = document.getElementById("inputPekerjaan").value
+        let inputUmur = document.getElementById("inputUmur").value
+        let inputPic = document.getElementById("inputPic").value
+
+        let newData = new Orang(inputNama, inputPekerjaan, inputUmur, inputPic)
+
+        dataOrang.push(newData)
+        renderData()
+        alert('Data berhasil ditambah')
+    }
+
+    const deleteData = (deleteIndex) => {
+        dataOrang.splice(deleteIndex, 1)
+        alert('Data berhasil dihapus')
+        renderData()
+    }
+
+    
+</script>
+
+</html>

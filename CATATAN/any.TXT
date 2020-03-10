@@ -1,0 +1,6 @@
+for each --> untuk array
+for of ---> untuk object
+spread --> (...<x>) --> menghilangkan array notation
+menambah data dalam array --> [...arr, <data yg akan ditambah]
+primitif data type --> menyimpan value. ex: boolean, number, string
+object tidak bisa langsung di sort, solusi --> menggunakan bracet notations agar dinamis

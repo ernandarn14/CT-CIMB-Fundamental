@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    //harga
+    let hrgApel = 5000
+    let hrgPisang = 6000
+    let hrgJeruk = 10000
+    let hrgKiwi = 8000
+
+    //stok
+    let qtyApel = 60
+    let qtyPisang = 20
+    let qtyJeruk = 40
+    let qtyKiwi = 8
+
+    let condition = true  
+    while(condition){    
+        alert(
+        "Pisang, Rp. " + hrgPisang + ", Stok: " + qtyPisang + "\n" +
+        "Apel, Rp. " + hrgApel + ", Stok: " + qtyApel + "\n" +
+        "Jeruk, Rp. " + hrgJeruk + ", Stok: " + qtyJeruk + "\n" +
+        "Kiwi, Rp. " + hrgKiwi + ", Stok: " + qtyKiwi
+    )
+
+    let apel = parseInt(prompt("Masukkan jumlah Apel"))
+    let pisang = parseInt(prompt("Masukkan jumlah Pisang"))
+    let jeruk = parseInt(prompt("Masukkan jumlah Jeruk"))
+    let kiwi = parseInt(prompt("Masukkan jumlah Kiwi"))
+    condition = false
+
+      if (apel <= qtyApel && pisang <= qtyPisang && jeruk <= qtyJeruk && kiwi <= qtyKiwi) {
+          qtyApel -= apel
+          qtyPisang -= pisang
+          qtyJeruk -= jeruk
+          qtyKiwi -= kiwi
+
+      let total = (hrgApel * apel) + (hrgPisang * pisang) + (hrgJeruk * jeruk) + (hrgKiwi * kiwi)
+
+      alert("Total Harga: Rp. " + total);
+      let uang = parseInt(prompt("Masukkan Nominal Uang"))
+
+      if (uang < total) {
+        let kurang = total - uang
+        alert("Uang kurang Rp. " + kurang)
+        if (kurang){
+            let kurangBayar = prompt("Masukkan kekurangan uang")
+            alert("Pembayaran berhasil. Terima Kasih")
+        } 
+      } else if (uang > total) {
+        let lebih = uang - total;
+        alert(
+          "Uang kelebihan Rp. " + lebih + "\n" + "Terima Kasih Telah Berbelanja"
+        )
+      } else {
+        alert("Uang PAS. Terima Kasih")
+      }
+    } else {
+      alert("Stok Buah Tidak Mencukupi");
+      condition = true
+    }
+    var selesai = confirm('Ingin Melanjutkan Belanja?')
+    if (selesai == true){
+        selesai = true
+        condition = true
+    }
+    else{
+        alert("Terima Kasih Atas Kunjungannya")
+        selesai = false
+    }
+    }
+  </script>
+</html>
