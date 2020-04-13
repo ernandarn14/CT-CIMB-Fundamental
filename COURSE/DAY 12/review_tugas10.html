@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        table,
+        tr,
+        td,
+        th {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center
+        }
+
+        h3 {
+            text-align: center
+        }
+    </style>
+    <table align="center">
+        <thead>
+            <tr>
+                <th onclick="sortData('nama')">Nama</th>
+                <th onclick="sortData('pekerjaan')">Pekerjaan</th>
+                <th onclick="sortData('umur')">Umur</th>
+                <th onclick="sortData('gender')">Gender</th>
+                <th>Picture</th>
+                <th>Biodata</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="mainData">
+
+        </tbody>
+
+        <tfoot id="inputData">
+            <tr>
+                <td><input id="inputNama" type="text" placeholder="Input Nama:"></td>
+                <td><input id="inputPekerjaan" type="text" placeholder="Input Pekerjaan:"></td>
+                <td><input id="inputUmur" type="text" placeholder="Input Umur:"></td>
+                <td>
+                    <input type="radio" id="male" name="gender" value="male">Male<br>
+                    <input type="radio" id="female" name="gender" value="female">Female
+                </td>
+                <td><input id="inputPic" type="text" placeholder="Input Picture Link:"></td>
+                <td>
+                    <textarea id="inputBiodata" rows="4" cols="50" placeholder="Input Biodata"
+                        onkeyup="textCounter()"></textarea>
+                    <br><span id="counterText">(0/30)</span>
+                </td>
+                <td><input id="submit" type="button" value="Submit" onclick="addData()"></td>
+            </tr>
+        </tfoot>
+
+    </table>
+    <h3 id="inputWarning"></h3>
+    <h3 id="deleteWarning"></h3>
+    <table align="center">
+        <tr>
+            <td><input type="search" id="searchName" placeholder="Search by name"></td>
+            <td><input type="search" id="searchJob" placeholder="Search by job"></td>
+            <td>
+                <select id="searchGender" >
+                    <option value="" disabled>Search by Gender</option>
+                    <option value="">All</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </td>
+            <td>
+                <input type="search" id="minUmur" placeholder="Umur Minimal">
+                <input type="search" id="maxUmur" placeholder="Umur Maximal">
+            </td>
+            <td><input id="search" type="button" value="Search" onclick="searchData()"></td>
+        </tr>
+    </table>
+</body>
+<script>
+    class Orang {
+        constructor(nama, pekerjaan, umur, gender, pic, biodata) {
+            this.nama = nama,
+                this.pekerjaan = pekerjaan,
+                this.umur = umur,
+                this.gender = gender,
+                this.pic = pic,
+                this.biodata = biodata
+        }
+    }
+
+    let dataOrang = [
+        new Orang('Larva', 'Designer', 10, 'Female', 'https://lampukecildotcom.files.wordpress.com/2015/08/animasi-kartun-larva.jpg', 'aku lucu sekalih'),
+        new Orang('Spongebob', 'Chef', 16, 'Male', 'https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/SpongeBob_SquarePants_character.svg/330px-SpongeBob_SquarePants_character.svg.png', 'aku kerja di crusty crab'),
+        new Orang('Minion', 'Bodyguard', 20, 'Male', 'https://m.media-amazon.com/images/S/aplus-media/mg/dbf4301f-af40-46f2-9a87-a99deddcd9a2._SL300__.jpg', 'Minions adalah sebuah film komedi animasi komputer 3D. Film tersebut diproduksi oleh Illumination Entertainment dan distribusikan oleh Universal Pictures')
+    ]
+
+    const renderData = (arr = dataOrang) => {
+        let hasil = ''
+        arr.forEach(({ nama, pekerjaan, umur, gender, pic, biodata }, index) => {
+            if (biodata.length > 30) {
+                biodata = biodata.slice(0, 30).concat('...')
+            }
+            hasil += `
+            <tr>
+                <td>${nama}</td>
+                <td>${pekerjaan}</td>
+                <td>${umur}</td>
+                <td>${gender}</td>
+                <td><img src=${pic} width="100px"></td>
+                <td><textarea rows="4" cols="50" readonly>${biodata}</textarea>
+                    </td>
+                <td><input id="delete" type="button" value="Delete" onclick="deleteData(${index})"></td>
+            </tr>
+            `
+        })
+        document.getElementById("mainData").innerHTML = hasil
+    }
+    renderData(dataOrang)
+
+    const addData = () => {
+        let inputNama = document.getElementById("inputNama").value
+        let inputPekerjaan = document.getElementById("inputPekerjaan").value
+        let inputUmur = parseInt(document.getElementById("inputUmur").value)
+        let inputGender = document.getElementsByName("gender")
+        let inputPic = document.getElementById("inputPic").value
+        let inputBiodata = document.getElementById("inputBiodata").value
+        let gender
+
+
+        if (document.getElementById("male").checked) {
+            inputGender = document.getElementById("male").value
+        } else {
+            inputGender = document.getElementById("female").value
+        }
+
+
+        let newData = new Orang(inputNama, inputPekerjaan, inputUmur, inputGender, inputPic, inputBiodata)
+
+        if (inputNama && inputPekerjaan && inputUmur && inputGender && inputPic && inputBiodata) {
+            dataOrang.push(newData)
+            // document.getElementById("counterText").innerHTML = "0/30"
+            renderData()
+            textCounter()
+            document.getElementById("inputWarning").innerHTML = ""
+            alert('Data berhasil ditambah')
+            document.getElementById("inputNama").value = ""
+            document.getElementById("inputPekerjaan").value = ""
+            document.getElementById("inputUmur").value = ""
+            document.getElementById("inputPic").value = ""
+            document.getElementById("inputBiodata").value = ""
+        } else {
+            document.getElementById("inputWarning").innerHTML = "Ada field kosong"
+        }
+
+    }
+
+    const deleteData = (deleteIndex) => {
+        dataOrang.splice(deleteIndex, 1)
+        alert('Data berhasil dihapus')
+        renderData()
+
+        if (dataOrang.length == 0) {
+            document.getElementById("deleteWarning").innerHTML = "Data Kosong!"
+        }
+    }
+
+    let switchSort = {
+        nama: 0,
+        pekerjaan: 0,
+        umur: 0
+    }
+
+    const sortData = (key) => {
+        const sortFnAsc = (a, b) => {
+            return a[key] > b[key] ? 1 : -1
+        }
+
+        const sortFnDesc = (a, b) => {
+            return a[key] < b[key] ? 1 : -1
+        }
+
+        if (switchSort[key] % 2 === 0) {
+            switchSort[key]++
+            dataOrang.sort(sortFnAsc)
+        } else {
+            switchSort[key]--
+            dataOrang.sort(sortFnDesc)
+        }
+
+        renderData()
+    }
+
+    const textCounter = () => {
+        //document.getElementById("counterText").innerHTML = inputBiodata.value.length + " /30"
+        let inputBio = document.getElementById("inputBiodata").value
+
+        document.getElementById("counterText").innerHTML = `${inputBio.length} /30`
+    }
+
+    const searchData = () => {
+        let tampil = []
+        let nameFilter = document.getElementById("searchName").value
+        let jobFilter = document.getElementById("searchJob").value
+        let genderFilter = document.getElementById("searchGender").value
+        let minUmurFilter = (document.getElementById("minUmur").value) 
+        let maxUmurFilter = (document.getElementById("maxUmur").value)
+
+        if(!maxUmurFilter){
+            maxUmurFilter = 999
+        }
+
+        dataOrang.forEach((val) => {
+            let { nama, pekerjaan, gender, umur } = val
+            if (nama.toLowerCase().startsWith(nameFilter.toLowerCase()) &&
+                gender.toLowerCase().startsWith(genderFilter.toLowerCase()) &&
+                pekerjaan.toLowerCase().startsWith(jobFilter.toLowerCase()) && 
+                umur >= minUmurFilter && umur <= maxUmurFilter) {
+                tampil.push(val)
+            }
+        })
+        renderData(tampil)
+    }
+
+
+</script>
+
+</html>

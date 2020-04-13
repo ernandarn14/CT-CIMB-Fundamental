@@ -21,17 +21,18 @@
 //     }
 // }))
 
-const validator = (arr, cb) => {
-    let arrResult = []
-    for (let i = 0; i < arr.length; i++) {
-       // arrResult[i] = cb(arr[i])
-       arrResult.push(cb(arr[i]))
-    }
-    return arrResult
-}
+// const validator = (arr, cb) => {
+//     let arrResult = []
+//     for (let i = 0; i < arr.length; i++) {
+//        // arrResult[i] = cb(arr[i])
+//        arrResult.push(cb(arr[i]))
+//     }
+//     return arrResult
+// }
 
-let arrParam = [1, 2, 3, 4]
+// let arrParam = [1, 2, 3, 4]
 
-console.log(validator(arrParam, (val) => {
-    return val * 2
-}))
+// console.log(validator(arrParam, (val) => {
+//     return val * 2
+// }))
+

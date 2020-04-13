@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 id="timer">
+        <span id="h">00</span>h:<span id="m">00</span>m:<span id="s">00</span>s
+    </h1>
+    <input type="button" id="start" value="Start" onclick="startTimer()">
+    <input type="button" value="Reset" onclick="resetTimer()"><br><br>
+    <input type="button" value="Lap" onclick="lapTimer()">
+    <input type="button" value="Stop" onclick="stopTimer()"><br><br>
+    <h3 id="lap"></h3>
+
+    <script>
+        let s = 0,
+            m = 0,
+            h = 0,
+            sEl = document.getElementById('s'),
+            mEl = document.getElementById('m'),
+            hEl = document.getElementById('h'),
+            stopwatch,
+            time = document.getElementById('timer')
+          
+
+
+        const startTimer = () => {
+            stopwatch = setInterval(function () {
+                s++
+                if (s >= 60) {
+                    m++
+                    s = 0
+                }  
+                if (m >= 60) {
+                    m = 0
+                    h++
+                }
+                updateTimer()
+                formatTimer()
+            }, 1)
+        }
+
+
+        const updateTimer = () => {
+            hEl.innerText = h
+            sEl.innerText = s
+            mEl.innerText = m 
+        }
+
+        const formatTimer = () => {
+            if(h > 9){
+                hEl.innerHTML = h
+            } 
+            if (h <= 9) {
+                hEl.innerHTML = "0" + h
+            }
+            if(m > 9){
+                mEl.innerHTML = m
+            } 
+            if (m <= 9) {
+                mEl.innerHTML = "0" + m
+            }
+            if (s <=9 ){
+                sEl.innerHTML = "0" + s
+            }
+        }
+
+
+
+        const stopTimer = () => {
+            clearInterval(stopwatch)
+        }
+
+        const lapTimer = () => {
+            document.getElementById("lap").innerHTML +=
+                (h ? (h > 9 ? h : `0${h}`) : `00`) +
+                "h:" +
+                (m ? (m > 9 ? m : `0${m}`) : `00`) +
+                "m:" +
+                (s > 9 ? s : `0${s}`) + `s<br><br>`
+        }
+
+        const resetTimer = () => {
+            h = 0 
+            s = 0
+            m = 0
+            updateTimer()
+            formatTimer()
+            document.getElementById("lap").innerHTML = ''
+        }
+    </script>
+</body>
+
+</html>

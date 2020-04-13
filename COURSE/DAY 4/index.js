@@ -4,12 +4,12 @@
 
 // console.log(text.slice(2, 5))
 
-//console.log(text.trim())
+// console.log(text.trim())
 
 // arr.push('nanda')
 // arr[0] = 'Leci'
 // console.log(arr)
-//console.log(arr.length)
+// console.log(arr.length)
 
 // let arrNumbers = [3, 7, 6, 9, 5]
 // let jumlah = 0

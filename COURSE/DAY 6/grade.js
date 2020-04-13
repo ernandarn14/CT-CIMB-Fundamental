@@ -28,10 +28,10 @@ function calculateGrade(marks) {
 
 function calculateAverage(arr) {
   // write your code here
-  let sum = 0
-  for (let i = 0; i < arr.length; i++) {
-    sum += parseInt(arr[i])
-  }
+  let sum = arr.reduce((a,b) => a+b)
+  // for (let i = 0; i < arr.length; i++) {
+  //   sum += parseInt(arr[i])
+  // }
   return sum / arr.length
 }
 

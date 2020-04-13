@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let arr = []
+    let repeat = true
+    let tampil
+
+    do {
+        let input = parseInt(prompt('Masukkan Angka'))
+        let isDigit = /^\d+$/.test(input)
+        if (isDigit) {
+            tampil = input
+            arr.push(tampil)
+            repeat = true
+        } else {
+            alert('Bukan number')
+            repeat = false
+        }
+    } while (repeat)
+    //console.log(arr)
+    let sortArr = arr.sort((a, b) => a - b)
+    console.log(sortArr)
+    let max = sortArr[0]
+    let min = sortArr[0]
+    for (let i = 0; i < sortArr.length; i++) {
+        if (sortArr[i] > max) {
+            max = sortArr[i]
+        } else if (sortArr[i] < min) {
+            min = sortArr[i]
+        }
+    }
+    console.log(`Nilai terendah: ${min} \n Nilai tertinggi: ${max}`)
+    //alert(`Number: ${sortArr} \n Nilai terendah: ${min} \n Nilai tertinggi: ${max}`)
+
+</script>
+
+</html>

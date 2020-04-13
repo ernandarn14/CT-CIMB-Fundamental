@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ol,
+        li {
+            padding: 8px
+        }
+
+        div {
+            margin-left: 50px
+        }
+    </style>
+</head>
+
+<body>
+    <div id="head">
+        <h1>Drawing Tools</h1>
+        <ol>
+            <li>Persegi</li>
+            <li>Segitiga Siku2 Rata Kiri</li>
+            <li>Segitiga Siku2 Rata Kanan</li>
+        </ol>
+        <label for="option">Jenis Bangunan:</label><br><br>
+        <input type="number" id="option"><br><br>
+        <label for="ukuran">Ukuran:</label><br><br>
+        <input type="number" id="ukuran"><br><br>
+        <input id="input" type="button" value="Lihat" onclick="hitung()">
+    </div> <br>
+    <div id="tampil">
+    </div>
+
+
+    <script>
+        const selector = (id) => {
+            return document.getElementById(id)
+        }
+        const hitung = () => {
+            let option = selector("option").value
+            let inputSize = selector("ukuran").value
+            let tampil = ''
+
+            if (option == 1) {
+                for (let i = 0; i < inputSize; i++) {
+                    for (let k = 0; k < inputSize; k++) {
+                        tampil += '*'
+                    }
+                    tampil += `<br>`
+                }
+                clearText()
+            } else if (option == 2) {
+                for (let i = 0; i < inputSize; i++) {
+                    tampil += '*'
+                    for (let j = 0; j < inputSize; j++) {
+                        if (j == i) {
+                            break
+                        }
+                        tampil += '*'
+                    }
+                    tampil += `<br>`
+                }
+                clearText()
+            } else if (option == 3) {
+                for (let i = 0; i < inputSize; i++) {
+                    for (let k = inputSize; k > i; k--) {
+                        tampil += '&nbsp '
+                    }
+                    tampil += '*'
+                    for (let j = 0; j < i; j++) {
+                        tampil += '*'
+                    }
+                    tampil += '<br>'
+                    console.log(tampil)
+                }
+                clearText()
+            }
+            selector('tampil').innerHTML = tampil
+        }
+
+        const clearText = () => {
+            let option = selector("option").value = ''
+            let inputSize = selector("ukuran").value = ''
+        }
+    </script>
+
+</body>
+
+</html>

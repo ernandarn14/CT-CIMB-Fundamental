@@ -1,6 +1,30 @@
-for each --> untuk array
-for of ---> untuk object
-spread --> (...<x>) --> menghilangkan array notation
-menambah data dalam array --> [...arr, <data yg akan ditambah]
-primitif data type --> menyimpan value. ex: boolean, number, string
-object tidak bisa langsung di sort, solusi --> menggunakan bracet notations agar dinamis
+- for each --> untuk array
+- for of ---> untuk object
+- spread --> (...<x>) --> menghilangkan array notation
+- menambah data dalam array --> [...arr, <data yg akan ditambah]
+- primitif data type --> menyimpan value. ex: boolean, number, string
+- object tidak bisa langsung di sort, solusi --> menggunakan bracet notations agar dinamis
+- sum array =
+  a. for loop
+     //  for(let i = 0; i < arrNumbers.length; i++){
+     //      jumlah += arrNumbers[i] 
+     //  }
+  b. for each
+    //  arrNumbers.forEach(function (val){
+    //      jumlah += val
+    //  })   
+  c. for i
+    //  for (let i of arrNumbers){
+    //      console.log(i)
+    //  }  
+  d. reduce()
+    arrNumbers.reduce((a,b) => a + b)
+
+- mengetahui indexOf dari array of string (day 8/index.js)
+- callback function (day 11/idex.js)
+- map() --> calling each element of array
+- tentang looping for, object, setTimeOut, setInterval (day 15/index.js)
+- spread operator (day 16/index.js)
+- property map function (day 17/index.js)
+- find hanya mereturn pada index pertama.
+- map(Number) -> convert integer to array of digit

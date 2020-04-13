@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>
+        <time>00h:00m:00s</time>
+    </h1>
+    <input type="button" id="start" value="Start" onclick="startTimer()">
+    <input type="button" value="Reset" onclick="resetTimer()"><br><br>
+    <input type="button" value="Lap" onclick="lapTimer()">
+    <input type="button" value="Stop" onclick="stopTimer()"><br><br>
+    <p id="lap"></p>
+
+    <script>
+        let timer
+        let time = document.getElementsByTagName('h1')[0]
+        let hours = 0, minutes = 0, seconds = 0
+
+        const timeFormat = () => {
+            seconds++
+            if (seconds >= 60) {
+                seconds = 0
+                minutes++
+                if (minutes >= 60) {
+                    minutes = 0
+                    hours++
+                }
+            }
+
+            time.textContent =
+                (hours ? (hours > 9 ? hours : `0${hours}`) : `00`) +
+                "h:" +
+                (minutes ? (minutes > 9 ? minutes : `0${minutes}`) : `00`) +
+                "m:" +
+                (seconds > 9 ? seconds : `0${seconds}`) + "s"
+
+            startTimer()
+        }
+
+        const startTimer = () => {
+            timer = setTimeout(timeFormat, 1)
+        }
+
+        const stopTimer = () => {
+            clearTimeout(timer)
+        }
+
+        const resetTimer = () => {
+            seconds = 0
+            minutes = 0
+            hours = 0
+            time.textContent = "00h:00m:00s"
+            document.getElementById("lap").innerHTML = ''
+        }
+
+
+        const lapTimer = () => {
+            document.getElementById("lap").innerHTML += `${hours}h:${minutes}m:${seconds}s<br>`
+            if(hours > 9){
+                document.getElementById("lap").innerHTML = `0${hours}`
+            } else {
+                document.getElementById("lap").innerHTML = `00`
+            }
+            if(minutes > 9){
+                document.getElementById("lap").innerHTML = `0${minutes}`
+            } else {
+                document.getElementById("lap").innerHTML `00`
+            }
+            if(seconds > 9){
+                document.getElementById("lap").innerHTML = `0${seconds}`
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>
